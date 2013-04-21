@@ -4,7 +4,7 @@ import random
 class Moonlander:
     def __init__(self):
         self.acceleration = random.randint(10, 30)/10  # 1-3 by 0.1
-        self.wind = 0.2 * random.random()
+        self.wind = 0.2 * (random.random()-0.5)
 
         self.max_safe_landing_speed = 4.0
         self.min_safe_x = -0.2
