@@ -36,9 +36,9 @@ class Moonlander:
     def test(self):
         if self.height > 0:
             return 'in_air'
-        if (self.y_velocity > self.max_safe_landing_speed):  #or
-                #self.x_position < self.min_safe_x or
-                #self.x_position > self.max_safe_x):
+        if (self.y_velocity > self.max_safe_landing_speed or
+                self.x_position < self.min_safe_x or
+                self.x_position > self.max_safe_x):
             return 'crashed'
         else:
             return 'landed'
