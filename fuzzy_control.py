@@ -1,23 +1,25 @@
+import sys
 from fuzz import TrapezoidalFuzzyNumber as Trapezoid
 
 
 class FuzzyControl:
     def __init__(self):
-        self.height_sets = {'low': Trapezoid((0, 13), (0, 50)),
-                            'medium': Trapezoid((50, 63), (35, 75)),
-                            'high': Trapezoid((75, 100), (55, 100))}
+        MAX = float(sys.maxint)
+        self.height_sets = {'low': Trapezoid((-MAX, 20.0), (-MAX, 40.0)),
+                            'medium': Trapezoid((50.0, 50.0), (30.0, 70.0)),
+                            'high': Trapezoid((70.0, MAX), (60.0, MAX))}
 
-        self.y_velocity_sets = {'safe': Trapezoid((0, 3), (0, 5)),
-                                'medium': Trapezoid((5, 60), (4, 90)),
-                                'fast': Trapezoid((90, 310), (50, 310))}
+        self.y_velocity_sets = {'safe': Trapezoid((-MAX, 3.0), (-MAX, 4.0)),
+                                'medium': Trapezoid((5.0, 20.0), (3.5, 40.0)),
+                                'fast': Trapezoid((50.0, MAX), (35.0, MAX))}
 
-        self.position_sets = {'left': Trapezoid((-5, -0.3), (-5, -0.2)),
-                              'safe': Trapezoid((-0.1, 0.1), (-0.3, 0.3)),
-                              'right': Trapezoid((0.3, 5), (0.2, 5))}
+        self.position_sets = {'left': Trapezoid((-MAX, -0.3), (-MAX, -0.2)),
+                              'safe': Trapezoid((-0.2, 0.2), (-0.25, 0.25)),
+                              'right': Trapezoid((0.3, MAX), (0.2, MAX))}
 
-        self.x_velocity_sets = {'left': Trapezoid((-5, -2), (-5, -1)),
-                                'slow': Trapezoid((-0.5, 0.5), (-2, 2)),
-                                'right': Trapezoid((2, 5), (1, 5))}
+        self.x_velocity_sets = {'left': Trapezoid((-MAX, -0.4), (-MAX, -0.2)),
+                                'slow': Trapezoid((-0.08, 0.08), (-0.2, 0.2)),
+                                'right': Trapezoid((0.4, MAX), (0.2, MAX))}
 
     def _get_burn(self, position, velocity):
         rules = []
@@ -43,8 +45,8 @@ class FuzzyControl:
                          self.y_velocity_sets['safe'].mu(velocity)))
 
         burn = sum((rules[0]*1, rules[1]*0, rules[2]*0,
-                   rules[3]*2, rules[4]*1, rules[5]*0,
-                   rules[6]*3, rules[7]*2, rules[8]*0))/sum(rules)
+                   rules[3]*6, rules[4]*4, rules[5]*0,
+                   rules[6]*9, rules[7]*7, rules[8]*0.5))/sum(rules)
         return burn
 
     def _get_thrust(self, position, velocity):
@@ -70,9 +72,9 @@ class FuzzyControl:
         rules.append(min(self.position_sets['right'].mu(position),
                          self.x_velocity_sets['right'].mu(velocity)))
 
-        thrust = sum((rules[0]*0.3, rules[1]*0.2, rules[2]*0.1,
+        thrust = sum((rules[0]*0.1, rules[1]*0.02, rules[2]*0,
                       rules[3]*0.1, rules[4]*0, rules[5]*-0.1,
-                      rules[6]*-0.3, rules[7]*-0.2, rules[8]*-0.1))/sum(rules)
+                      rules[6]*0, rules[7]*-0.02, rules[8]*-0.1))/sum(rules)
         return thrust
 
     def control_input(self, height, y_velocity, position, x_velocity):
