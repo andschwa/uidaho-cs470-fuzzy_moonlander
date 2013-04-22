@@ -47,7 +47,7 @@ class FuzzyControl:
 
         burn = sum((rules[0]*1, rules[1]*0, rules[2]*0,
                    rules[3]*8, rules[4]*4, rules[5]*0,
-                   rules[6]*14, rules[7]*6, rules[8]*1))/sum(rules)
+                   rules[6]*9, rules[7]*5, rules[8]*0))/sum(rules)
         return burn
 
     def _get_thrust(self, position, velocity):
