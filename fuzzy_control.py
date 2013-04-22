@@ -10,8 +10,8 @@ class FuzzyControl:
                             'high': Trapezoid((70.0, MAX), (60.0, MAX))}
 
         self.y_velocity_sets = {'safe': Trapezoid((-MAX, 3.0), (-MAX, 4.0)),
-                                'medium': Trapezoid((5.0, 20.0), (3.5, 40.0)),
-                                'fast': Trapezoid((50.0, MAX), (35.0, MAX))}
+                                'medium': Trapezoid((9.0, 15.0), (4.0, 30.0)),
+                                'fast': Trapezoid((35.0, MAX), (25.0, MAX))}
 
         self.position_sets = {'low': Trapezoid((-MAX, 1.6), (-MAX, 2.0)),
                               'medium': Trapezoid((2.4, 2.4), (1.8, 3.0)),
@@ -46,8 +46,8 @@ class FuzzyControl:
                          self.y_velocity_sets['safe'].mu(velocity)))
 
         burn = sum((rules[0]*1, rules[1]*0, rules[2]*0,
-                   rules[3]*6, rules[4]*4, rules[5]*0,
-                   rules[6]*12, rules[7]*8, rules[8]*1))/sum(rules)
+                   rules[3]*8, rules[4]*4, rules[5]*0,
+                   rules[6]*14, rules[7]*6, rules[8]*1))/sum(rules)
         return burn
 
     def _get_thrust(self, position, velocity):
