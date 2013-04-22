@@ -30,14 +30,15 @@ class Moonlander:
         return self.controller.control_input(self.height,
                                              self.y_velocity,
                                              self.x_position,
-                                             self.x_velocity)
+                                             self.x_velocity,
+                                             self.wind)
 
     def test(self):
         if self.height > 0:
             return 'in_air'
-        if (self.y_velocity > self.max_safe_landing_speed or
-                self.x_position < self.min_safe_x or
-                self.x_position > self.max_safe_x):
+        if (self.y_velocity > self.max_safe_landing_speed):  #or
+                #self.x_position < self.min_safe_x or
+                #self.x_position > self.max_safe_x):
             return 'crashed'
         else:
             return 'landed'
@@ -60,16 +61,18 @@ class Moonlander:
         self.x_velocity -= thrust
 
         self.height -= self.y_velocity
-        self.x_position += self.x_velocity + self.wind
+        self.x_position += (self.x_velocity + self.wind)
         self.landed = self.test()
-        print('Using burn = {} and thrust = {} for:'.format(burn, thrust))
-        self.output()
+        self.output(burn, thrust)
 
-    def output(self):
+    def output(self, burn, thrust):
         output = {'Height': self.height,
                   'Y-Velocity': self.y_velocity,
-                  'Position': self.x_position,
-                  'X-Velocity': self.x_position,
+                  'Burn': burn,
+                  'Wind': self.wind,
+                  'X-Velocity': self.x_velocity,
+                  'X-Position': self.x_position,
+                  'Thrust': thrust,
                   'Fuel': self.fuel}
         for string, variable in output.items():
             print(string+': {}'.format(variable))
