@@ -62,6 +62,8 @@ class Moonlander:
         self.height -= self.y_velocity
         self.x_position += self.x_velocity + self.wind
         self.landed = self.test()
+        print('Using burn = {} and thrust = {} for:'.format(burn, thrust))
+        self.output()
 
     def output(self):
         output = {'Height': self.height,
@@ -71,3 +73,4 @@ class Moonlander:
                   'Fuel': self.fuel}
         for string, variable in output.items():
             print(string+': {}'.format(variable))
+        print('')
