@@ -26,6 +26,7 @@
 \begin{document}
 \maketitle 
 \begin{abstract}
+For this project I wrote a Python program to simulate a ``moonlander'' with varying environmental conditions and two dimensions of movement. An artificial intelligence in the form of a fuzzy logic control system was implemented to control the moonlander. As per the project's requirements, the moonlander has two directional rockets, a burner and a thruster, that adjust its position vertically and horizontally respectively. The burner is unidirectional, that is, it can only slow a descent, not speed it up; however, the thruster can adjust the craft in either direction horizontally. The craft's ``environment'' is represented by a downward acceleration, vertical and horizontal position, an amount of fuel, and a strictly horizontal ``wind'' (which is a constant force; no air resistance is taken into account at any point). The wind, acceleration, and initial vertical velocity are randomized with each new craft. The $x$ and $y$ positions and velocities are sent as inputs to the fuzzy control system. After mapping these into fuzzy sets and making a recommendation, the results are then defuzzified and sent back to the craft as burn and thrust amounts. To demonstrate the fuzzy control system, $100,000$ moonlanders and environments were simulated, with a success ful landing rate (within the constraints of the assignment) of $95.6$ percent.
 \end{abstract}
 \pagebreak
 \section{Introduction}
