@@ -21,58 +21,58 @@ class FuzzyControl:
 
     def _get_burn(self, position, velocity):
         rules = []
-        rules += min(self.height_sets['high'].mu(position),
-                     self.y_velocity_sets['fast'].mu(velocity))
-        rules += min(self.height_sets['high'].mu(position),
-                     self.y_velocity_sets['medium'].mu(velocity))
-        rules += min(self.height_sets['high'].mu(position),
-                     self.y_velocity_sets['slow'].mu(velocity))
+        rules.append(min(self.height_sets['high'].mu(position),
+                         self.y_velocity_sets['fast'].mu(velocity)))
+        rules.append(min(self.height_sets['high'].mu(position),
+                         self.y_velocity_sets['medium'].mu(velocity)))
+        rules.append(min(self.height_sets['high'].mu(position),
+                         self.y_velocity_sets['safe'].mu(velocity)))
 
-        rules += min(self.height_sets['medium'].mu(position),
-                     self.y_velocity_sets['fast'].mu(velocity))
-        rules += min(self.height_sets['medium'].mu(position),
-                     self.y_velocity_sets['medium'].mu(velocity))
-        rules += min(self.height_sets['medium'].mu(position),
-                     self.y_velocity_sets['slow'].mu(velocity))
+        rules.append(min(self.height_sets['medium'].mu(position),
+                         self.y_velocity_sets['fast'].mu(velocity)))
+        rules.append(min(self.height_sets['medium'].mu(position),
+                         self.y_velocity_sets['medium'].mu(velocity)))
+        rules.append(min(self.height_sets['medium'].mu(position),
+                         self.y_velocity_sets['safe'].mu(velocity)))
 
-        rules += min(self.height_sets['low'].mu(position),
-                     self.y_velocity_sets['fast'].mu(velocity))
-        rules += min(self.height_sets['low'].mu(position),
-                     self.y_velocity_sets['medium'].mu(velocity))
-        rules += min(self.height_sets['low'].mu(position),
-                     self.y_velocity_sets['slow'].mu(velocity))
+        rules.append(min(self.height_sets['low'].mu(position),
+                         self.y_velocity_sets['fast'].mu(velocity)))
+        rules.append(min(self.height_sets['low'].mu(position),
+                         self.y_velocity_sets['medium'].mu(velocity)))
+        rules.append(min(self.height_sets['low'].mu(position),
+                         self.y_velocity_sets['safe'].mu(velocity)))
 
-        burn = (rules[0]*1, rules[1]*0, rules[2]*0,
-                rules[3]*2, rules[4]*1, rules[5]*0,
-                rules[6]*3, rules[7]*2, rules[8]*0) / sum(rules)
+        burn = sum((rules[0]*1, rules[1]*0, rules[2]*0,
+                   rules[3]*2, rules[4]*1, rules[5]*0,
+                   rules[6]*3, rules[7]*2, rules[8]*0))/sum(rules)
         return burn
 
     def _get_thrust(self, position, velocity):
         rules = []
-        rules += min(self.position_sets['left'].mu(position),
-                     self.x_velocity_sets['left'].mu(velocity))
-        rules += min(self.position_sets['left'].mu(position),
-                     self.x_velocity_sets['slow'].mu(velocity))
-        rules += min(self.position_sets['left'].mu(position),
-                     self.x_velocity_sets['right'].mu(velocity))
+        rules.append(min(self.position_sets['left'].mu(position),
+                         self.x_velocity_sets['left'].mu(velocity)))
+        rules.append(min(self.position_sets['left'].mu(position),
+                         self.x_velocity_sets['slow'].mu(velocity)))
+        rules.append(min(self.position_sets['left'].mu(position),
+                         self.x_velocity_sets['right'].mu(velocity)))
 
-        rules += min(self.position_sets['safe'].mu(position),
-                     self.x_velocity_sets['left'].mu(velocity))
-        rules += min(self.position_sets['safe'].mu(position),
-                     self.x_velocity_sets['slow'].mu(velocity))
-        rules += min(self.position_sets['safe'].mu(position),
-                     self.x_velocity_sets['right'].mu(velocity))
+        rules.append(min(self.position_sets['safe'].mu(position),
+                         self.x_velocity_sets['left'].mu(velocity)))
+        rules.append(min(self.position_sets['safe'].mu(position),
+                         self.x_velocity_sets['slow'].mu(velocity)))
+        rules.append(min(self.position_sets['safe'].mu(position),
+                         self.x_velocity_sets['right'].mu(velocity)))
 
-        rules += min(self.position_sets['right'].mu(position),
-                     self.x_velocity_sets['left'].mu(velocity))
-        rules += min(self.position_sets['right'].mu(position),
-                     self.x_velocity_sets['slow'].mu(velocity))
-        rules += min(self.position_sets['right'].mu(position),
-                     self.x_velocity_sets['right'].mu(velocity))
+        rules.append(min(self.position_sets['right'].mu(position),
+                         self.x_velocity_sets['left'].mu(velocity)))
+        rules.append(min(self.position_sets['right'].mu(position),
+                         self.x_velocity_sets['slow'].mu(velocity)))
+        rules.append(min(self.position_sets['right'].mu(position),
+                         self.x_velocity_sets['right'].mu(velocity)))
 
-        thrust = (rules[0]*0.3, rules[1]*0.2, rules[2]*0.1,
-                  rules[3]*0.1, rules[4]*0, rules[5]*-0.1,
-                  rules[6]*-0.3, rules[7]*-0.2, rules[8]*-0.1) / sum(rules)
+        thrust = sum((rules[0]*0.3, rules[1]*0.2, rules[2]*0.1,
+                      rules[3]*0.1, rules[4]*0, rules[5]*-0.1,
+                      rules[6]*-0.3, rules[7]*-0.2, rules[8]*-0.1))/sum(rules)
         return thrust
 
     def control_input(self, height, y_velocity, position, x_velocity):
