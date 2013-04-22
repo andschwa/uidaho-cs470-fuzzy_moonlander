@@ -73,14 +73,14 @@ class FuzzyControl:
         rules.append(min(self.position_sets['low'].mu(position),
                          self.x_velocity_sets['safe'].mu(velocity)))
 
-        thrust = sum((rules[0]*1.0, rules[1]*0.7, rules[2]*0.3,
-                      rules[3]*0.7, rules[4]*0.4, rules[5]*0.3,
-                      rules[6]*0.3, rules[7]*0.1, rules[8]*0.0))/sum(rules)
-        return -self.wind_direction * thrust
+        thrust = sum((rules[0]*2.0, rules[1]*1.7, rules[2]*1.0,
+                      rules[3]*1.2, rules[4]*0.9, rules[5]*0.6,
+                      rules[6]*0.8, rules[7]*0.5, rules[8]*0.1))/sum(rules)
+        return self.wind_direction * thrust
 
-    def control_input(self, height, y_velocity, position, x_velocity):
+    def control_input(self, height, y_velocity, position, x_velocity, wind):
         burn = self._get_burn(height, y_velocity)
         if self.wind_direction is None:
-            self.wind_direction = x_velocity/x_velocity
-        thrust = self._get_thrust(10*position, 10*x_velocity)
-        return burn, thrust
+            self.wind_direction = wind/wind
+        thrust = self._get_thrust(10*abs(position), 10*abs(x_velocity))
+        return burn, 0
