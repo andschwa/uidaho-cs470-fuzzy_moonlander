@@ -1,6 +1,9 @@
 import random
 
 
+from fuzzy_control import FuzzyControl
+
+
 class Moonlander:
     def __init__(self):
         self.acceleration = random.randint(10, 30)/10  # 1-3 by 0.1
@@ -18,13 +21,16 @@ class Moonlander:
         self.fuel = 100.0
         self.burn = None
         self.thrust = None
+        self.controller = FuzzyControl()
 
     def control(self):
         """
         This needs to get burn and thrust from the ANN
         """
-        self.burn = 1.0
-        self.thrust = 0
+        return self.controller.control_input(self.height,
+                                             self.y_velocity,
+                                             self.x_position,
+                                             self.x_velocity)
 
     def test(self):
         if self.height > 0:
@@ -38,20 +44,24 @@ class Moonlander:
 
     def update(self):
         self.y_velocity += self.acceleration
-        self.control()
+        burn, thrust = self.control()
 
-        if self.fuel < self.burn:
-            self.burn = self.fuel
-        self.fuel -= abs(self.burn)
-        self.y_velocity -= self.burn
+        if self.fuel < burn:
+            burn = self.fuel
+        self.fuel -= abs(burn)
+        self.y_velocity -= burn
 
-        if self.fuel < self.thrust:
-            self.thrust = self.fuel
-        self.fuel -= abs(self.thrust)
-        self.x_velocity -= self.thrust
+        if self.fuel < abs(thrust):
+            if thrust > 0:
+                thrust = self.fuel
+            elif thrust <= 0:
+                thrust = -self.fuel
+        self.fuel -= abs(thrust)
+        self.x_velocity -= thrust
 
         self.height -= self.y_velocity
         self.x_position += self.x_velocity + self.wind
+        self.landed = self.test()
 
     def output(self):
         output = {'Height': self.height,
