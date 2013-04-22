@@ -74,9 +74,9 @@ class FuzzyControl:
                          self.x_velocity_sets['right'].mu(velocity)))
         print(rules)
 
-        thrust = sum((rules[0]*-1.0, rules[1]*-0.1, rules[2]*0.0,
-                      rules[3]*-0.2, rules[4]*0.0, rules[5]*0.2,
-                      rules[6]*0.0, rules[7]*0.1, rules[8]*1.0))/sum(rules)
+        thrust = sum((rules[0]*-2.5, rules[1]*-1.9, rules[2]*0.0,
+                      rules[3]*-0.0, rules[4]*0.0, rules[5]*0.0,
+                      rules[6]*0.0, rules[7]*1.9, rules[8]*2.5))/sum(rules)
         return thrust
 
     def control_input(self, height, y_velocity, position, x_velocity, wind):
