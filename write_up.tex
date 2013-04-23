@@ -33,6 +33,71 @@ For this project I wrote a Python program to simulate a ``moonlander'' with vary
 Project 3b focussed on using fuzzy logic to create an automatic controller. Instead of dealing with exact values, ``fuzzy numbers'' are used, where each fuzzy number is defined by a fuzzy set. In particular, each input to the moonlander was mapped among three fuzzy sets, for a total of twelve. These fuzzy number objects (implemented using the FuzzPy library) have a method \emph{mu} which returns the \mu, or membership level, of any value in the universal set domain of the fuzzy number. The fuzzy numbers used in this project were all trapezoidal sets, with a pair of tuples defining the kernels and supports of the trapezoid, although a few have zero-length kernels, thus becoming triangular.
 
 To define the fuzzy logic rules, I used fuzzy associative matrices. Two three-by-three matrices were created, one for each output/pair of inputs, for a total of eighteen fuzzy AND based rules. Each of the two sets of rules were defuzzified using a weighted average approach, where each rule's output (that is, the minimum \mu value of an intersection on the matrix), was multiplied by a hand-calibrated weight, then added to the other rules, then divided by the total \mu values. The final output was then returned to the moonlander.
+
+
+\subsection{Fuzzy Numbers}
+These fuzzy numbers were created using the FuzzPy Python fuzzy number library, and the figures were generated using GNUPlot with the visualization plugin. The trapezoids are defined with a pair of tuples, each defining the kernels and supports respectively.
+
+\subsubsection{Height Fuzzy Numbers}
+The height input (i.e., $y$ position), was fuzzified into three sets: high, medium, and low.
+\begin{figure}[h]
+    \caption{High height set, kernels and supports at $(70, 310), (60, 310)$ respectively}
+    \includegraphics{graphs/height_high.png}
+\end{figure}
+\begin{figure}[h]
+    \caption{Medium height set, kernels and supports at $(50, 50), (30, 70)$ respectively}
+    \includegraphics{graphs/height_medium.png}
+\end{figure}
+\begin{figure}[h]
+    \caption{Low height set, kernels and supports at $(-5, 20), (-5, 30)$ respectively}
+    \includegraphics{graphs/height_low.png}
+\end{figure}
+
+\subsubsection{Y-Velocity Fuzzy Numbers}
+The $y$ velocity input was fuzzified into three sets: fast, medium, and safe.
+\begin{figure}[h]
+    \caption{Fast $y$ velocity set, kernels and supports at $(35, 100), (25, 100)$ respectively}
+    \includegraphics{graphs/y_velocity_fast.png}
+\end{figure}
+\begin{figure}[h]
+    \caption{Medium $y$ velocity set, kernels and supports at $(9, 15), (4, 30)$ respectively}
+    \includegraphics{graphs/y_velocity_medium.png}
+\end{figure}
+\begin{figure}[h]
+    \caption{Safe $y$ velocity set, kernels and supports at $(-5, 3), (-5, 4)$ respectively}
+    \includegraphics{graphs/y_velocity_safe.png}
+\end{figure}
+
+\subsubsection{X-Position Fuzzy Numbers}
+The $x$ position input was fuzzified into three sets: negative, zero, and positive. TO make the numbers easier to deal with, the input was multiplied by ten, and the output then divided by ten. This reduced the number of decimals I had to manually deal with.
+\begin{figure}[h]
+    \caption{Negative $x$ position set, kernels and supports at $(-5, -0.7), (-5, -0.2)$ respectively}
+    \includegraphics{graphs/position_negative.png}
+\end{figure}
+\begin{figure}[h]
+    \caption{Zero $x$ position set, kernels and supports at $(-0.1, 0.1), (-0.2, 0.2)$ respectively}
+    \includegraphics{graphs/position_zero.png}
+\end{figure}
+\begin{figure}[h]
+    \caption{Positive $x$ position set, kernels and supports at $(5, 0.7), (5, 0.2)$ respectively}
+    \includegraphics{graphs/position_positive.png}
+\end{figure}
+
+\subsubsection{X-Velocity Fuzzy Numbers}
+The $x$ velocity input was fuzzified into three sets: left, middle, and right. Again, these were multiplied and then re-divided by ten to reduce the number of decimals during adjustments.
+\begin{figure}[h]
+    \caption{Left $x$ velocity set, kernels and supports at $(-5, -0.6), (-5, -0.2)$ respectively}
+    \includegraphics{graphs/x_velocity_left.png}
+\end{figure}
+\begin{figure}[h]
+    \caption{Middle $x$ velocity set, kernels and supports at $(-0.2, 0.2), (-0.3, 0.3)$ respectively}
+    \includegraphics{graphs/x_velocity_middle.png}
+\end{figure}
+\begin{figure}[h]
+    \caption{Right $x$ velocity set, kernels and supports at $(5, 0.6), (5, 0.2)$ respectively}
+    \includegraphics{graphs/x_velocity_right.png}
+\end{figure}
+
 \section{Results}
 The final success rate after hand-calibration of the defuzzification method's weights was calculated at $95.6$ percent over $100,000$ randomly generated simulations. On average, $51.2$ units of fuel were consumed, the final landing velocity averaged to $2.93$ units of distance per tick, and the final landing position was on average $0.064$ units of distance away from the center of the landing site. The allowed maximum landing speed was $4$ units per tick, and the maximum safe distance from the center was $0.2$ units of distance. Compared to the artificial neural network from Project 3a, the fuzzy controller was far more successful, especially considering the neural network never successfully landed. The program did not have any particular strengths or weaknesses that I could discern from the gathered data. Almost all failed landings were due to slightly too high final vertical velocity. This could likely be accounted for with further refinement to the defuzzification weights, or with adjusted fuzzy sets.
 \section{Conclusion}
