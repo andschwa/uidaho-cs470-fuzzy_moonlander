@@ -27,7 +27,7 @@
 \begin{document}
 \maketitle 
 \begin{abstract}
-For this project I wrote a Python program to simulate a ``moonlander'' with varying environmental conditions and two dimensions of movement. An artificial intelligence in the form of a fuzzy logic control system was implemented to control the moonlander. As per the project's requirements, the moonlander has two directional rockets, a burner and a thruster, that adjust its position vertically and horizontally respectively. The burner is unidirectional, that is, it can only slow a descent, not speed it up; however, the thruster can adjust the craft in either direction horizontally. The craft's ``environment'' is represented by a downward acceleration, vertical and horizontal position, an amount of fuel, and a strictly horizontal ``wind'' (which is a constant force; no air resistance is taken into account at any point). The wind, acceleration, and initial vertical velocity are randomized with each new craft. The $x$ and $y$ positions and velocities are sent as inputs to the fuzzy control system. After mapping these into fuzzy sets and making a recommendation, the results are then defuzzified and sent back to the craft as burn and thrust amounts. To demonstrate the fuzzy control system, $100,000$ moonlanders and environments were simulated, with a success ful landing rate (within the constraints of the assignment) of $95.6$ percent.
+For this project I wrote a Python program to simulate a ``moonlander'' with varying environmental conditions and two dimensions of movement. An artificial intelligence in the form of a fuzzy logic control system was implemented to control the moonlander. As per the project's requirements, the moonlander has two directional rockets, a burner and a thruster, that adjust its position vertically and horizontally respectively. The burner is unidirectional, that is, it can only slow a descent, not speed it up; however, the thruster can adjust the craft in either direction horizontally. The craft's ``environment'' is represented by a downward acceleration, vertical and horizontal position, an amount of fuel, and a strictly horizontal ``wind'' (which is a constant force; no air resistance is taken into account at any point). The wind, acceleration, and initial vertical velocity are randomized with each new craft. The $x$ and $y$ positions and velocities are sent as inputs to the fuzzy control system. After mapping these into fuzzy sets and making a recommendation, the results are then defuzzified and sent back to the craft as burn and thrust amounts. To demonstrate the fuzzy control system, $100,000$ moonlanders and environments were simulated, with a successful landing rate (within the constraints of the assignment) of $95.6$ percent.
 \end{abstract}
 \pagebreak
 \section{Algorithm}
@@ -44,17 +44,17 @@ The height input (i.e., $y$ position), was fuzzified into three sets: high, medi
 \begin{figure}[h]
     \centering
     \caption{High height set, kernels and supports at $(70, 310), (60, 310)$ respectively}
-    \includegraphics{graphs/height_high.png}
+    \includegraphics[width=4in]{graphs/height_high.png}
 \end{figure}
 \begin{figure}[h]
     \centering
-    \caption{Medium height set, kernels and supports at $(50, 50), (30, 70)$ respectively}
-    \includegraphics{graphs/height_medium.png}
+    \caption{Medium height set, kernels and supports at $(50, 50), (30, 70)$ respectively (note how this is a triangle based on a trapezoid)}
+    \includegraphics[width=4in]{graphs/height_medium.png}
 \end{figure}
 \begin{figure}[h]
     \centering
     \caption{Low height set, kernels and supports at $(-5, 20), (-5, 30)$ respectively}
-    \includegraphics{graphs/height_low.png}
+    \includegraphics[width=4in]{graphs/height_low.png}
 \end{figure}
 
 \subsubsection{Y-Velocity Fuzzy Numbers}
@@ -62,17 +62,17 @@ The $y$ velocity input was fuzzified into three sets: fast, medium, and safe.
 \begin{figure}[h]
     \centering
     \caption{Fast $y$ velocity set, kernels and supports at $(35, 100), (25, 100)$ respectively}
-    \includegraphics{graphs/y_velocity_fast.png}
+    \includegraphics[width=4in]{graphs/y_velocity_fast.png}
 \end{figure}
 \begin{figure}[h]
     \centering
     \caption{Medium $y$ velocity set, kernels and supports at $(9, 15), (4, 30)$ respectively}
-    \includegraphics{graphs/y_velocity_medium.png}
+    \includegraphics[width=4in]{graphs/y_velocity_medium.png}
 \end{figure}
 \begin{figure}[h]
     \centering
     \caption{Safe $y$ velocity set, kernels and supports at $(-5, 3), (-5, 4)$ respectively}
-    \includegraphics{graphs/y_velocity_safe.png}
+    \includegraphics[width=4in]{graphs/y_velocity_safe.png}
 \end{figure}
 
 \subsubsection{X-Position Fuzzy Numbers}
@@ -80,17 +80,17 @@ The $x$ position input was fuzzified into three sets: negative, zero, and positi
 \begin{figure}[h]
     \centering
     \caption{Negative $x$ position set, kernels and supports at $(-5, -0.7), (-5, -0.2)$ respectively}
-    \includegraphics{graphs/position_negative.png}
+    \includegraphics[width=4in]{graphs/position_negative.png}
 \end{figure}
 \begin{figure}[h]
     \centering
     \caption{Zero $x$ position set, kernels and supports at $(-0.1, 0.1), (-0.2, 0.2)$ respectively}
-    \includegraphics{graphs/position_zero.png}
+    \includegraphics[width=4in]{graphs/position_zero.png}
 \end{figure}
 \begin{figure}[h]
     \centering
     \caption{Positive $x$ position set, kernels and supports at $(5, 0.7), (5, 0.2)$ respectively}
-    \includegraphics{graphs/position_positive.png}
+    \includegraphics[width=4in]{graphs/position_positive.png}
 \end{figure}
 
 \subsubsection{X-Velocity Fuzzy Numbers}
@@ -98,20 +98,22 @@ The $x$ velocity input was fuzzified into three sets: left, middle, and right. A
 \begin{figure}[h]
     \centering
     \caption{Left $x$ velocity set, kernels and supports at $(-5, -0.6), (-5, -0.2)$ respectively}
-    \includegraphics{graphs/x_velocity_left.png}
+    \includegraphics[width=4in]{graphs/x_velocity_left.png}
 \end{figure}
 \begin{figure}[h]
     \centering
     \caption{Middle $x$ velocity set, kernels and supports at $(-0.2, 0.2), (-0.3, 0.3)$ respectively}
-    \includegraphics{graphs/x_velocity_middle.png}
+    \includegraphics[width=4in]{graphs/x_velocity_middle.png}
 \end{figure}
 \begin{figure}[h]
     \centering
     \caption{Right $x$ velocity set, kernels and supports at $(5, 0.6), (5, 0.2)$ respectively}
-    \includegraphics{graphs/x_velocity_right.png}
+    \includegraphics[width=4in]{graphs/x_velocity_right.png}
 \end{figure}
 
 \section{Results}
 The final success rate after hand-calibration of the defuzzification method's weights was calculated at $95.6$ percent over $100,000$ randomly generated simulations. On average, $51.2$ units of fuel were consumed, the final landing velocity averaged to $2.93$ units of distance per tick, and the final landing position was on average $0.064$ units of distance away from the center of the landing site. The allowed maximum landing speed was $4$ units per tick, and the maximum safe distance from the center was $0.2$ units of distance. Compared to the artificial neural network from Project 3a, the fuzzy controller was far more successful, especially considering the neural network never successfully landed. The program did not have any particular strengths or weaknesses that I could discern from the gathered data. Almost all failed landings were due to slightly too high final vertical velocity. This could likely be accounted for with further refinement to the defuzzification weights, or with adjusted fuzzy sets.
+
 \section{Conclusion}
+This was a far more succsesful project than 3a with the neural network, which never quite worked right. Fuzzy logic is one the best ways to map ``dirty'' data from the real world into useable software objects. Realistic data almost never falls into perfect, discrete sets, often making it difficult for computers to parse and understand it. Fuzzy logic eliminates this problem, and is relatively easy to implement. Not only can it deal with a wide range of problems, it is also very successful at doing so.
 \end{document}
