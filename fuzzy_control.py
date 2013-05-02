@@ -4,22 +4,21 @@ from fuzz import TrapezoidalFuzzyNumber as Trapezoid
 
 class FuzzyControl:
     def __init__(self):
-        MAX = float(sys.maxint)
-        self.height_sets = {'low': Trapezoid((-MAX, 20.0), (-MAX, 40.0)),
+        self.height_sets = {'low': Trapezoid((-5, 20.0), (-5, 40.0)),
                             'medium': Trapezoid((50.0, 50.0), (30.0, 70.0)),
-                            'high': Trapezoid((70.0, MAX), (60.0, MAX))}
+                            'high': Trapezoid((70.0, 310), (60.0, 310))}
 
-        self.y_velocity_sets = {'safe': Trapezoid((-MAX, 3.0), (-MAX, 4.0)),
+        self.y_velocity_sets = {'safe': Trapezoid((-5, 3.0), (-5, 4.0)),
                                 'medium': Trapezoid((9.0, 15.0), (4.0, 30.0)),
-                                'fast': Trapezoid((35.0, MAX), (25.0, MAX))}
+                                'fast': Trapezoid((35.0, 100), (25.0, 100))}
 
-        self.position_sets = {'negative': Trapezoid((-MAX, -0.7), (-MAX, -0.2)),
+        self.position_sets = {'negative': Trapezoid((-5, -0.7), (-5, -0.2)),
                               'zero': Trapezoid((-0.1, 0.1), (-0.2, 0.2)),
-                              'positive': Trapezoid((0.7, MAX), (0.2, MAX))}
+                              'positive': Trapezoid((0.7, 5), (0.2, 5))}
 
-        self.x_velocity_sets = {'left': Trapezoid((-MAX, -0.6), (-MAX, -0.2)),
+        self.x_velocity_sets = {'left': Trapezoid((-5, -0.6), (-5, -0.2)),
                                 'middle': Trapezoid((-0.2, 0.2), (-0.3, 0.3)),
-                                'right': Trapezoid((0.6, MAX), (0.2, MAX))}
+                                'right': Trapezoid((0.6, 5), (0.2, 5))}
 
     def _get_burn(self, position, velocity):
         rules = []
