@@ -15,9 +15,9 @@ class Moonlander:
 
         self.landed = 'in_air'
         self.height = 100.0
-        self.x_position = 0
+        self.x_position = 0.0
         self.y_velocity = 10.0 * random.random()
-        self.x_velocity = 0
+        self.x_velocity = 0.0
         self.fuel = 100.0
         self.burn = None
         self.thrust = None
